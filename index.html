@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conjecture.ai | Data Analytics Automated Hypothesis Generator</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💠</text></svg>">
+</head>
+
+<body>
+  <!-- Background Animation -->
+  <div class="bg-fx"></div>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="container header-container">
+      <div class="logo">
+        <div class="logo-icon" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: white; margin-top:2px;">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h1>Conjecture.ai</h1>
+          <span>Automated Data Analytics</span>
+        </div>
+      </div>
+      <div class="header-nav" style="display:flex; gap:16px; margin-right:auto; margin-left:40px;">
+         <a href="index.html" class="nav-link active">Home</a>
+         <a href="about.html" class="nav-link">About Us</a>
+         <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-ghost" id="btn-toggle-chat" title="Toggle Assistant" style="font-size: 1.2rem; padding: 4px 10px;">💬</button>
+        <button class="btn btn-ghost" id="btn-theme-toggle" title="Toggle Light/Dark Mode" style="font-size: 1.2rem; padding: 4px 10px;">☀️</button>
+        <select id="select-demo" class="select-demo">
+          <option value="">Load Demo Dataset...</option>
+          <option value="retail">Retail Sales (Q1-Q4)</option>
+          <option value="health">Patient Health Metrics</option>
+          <option value="website">Website Traffic Analytics</option>
+        </select>
+        <button class="btn btn-secondary" id="btn-reset">
+          <span class="btn-icon">↺</span> Reset
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="container app-main">
+
+    <!-- Upload Section (Visible Initially) -->
+    <section id="section-upload" class="upload-section">
+      <div class="hero-text">
+        <h2>Uncover the story hidden in your data.</h2>
+        <p>Upload a CSV file and let our engine automatically detect trends, calculate statistics, and generate
+          actionable hypotheses.</p>
+      </div>
+      <div class="drop-zone" id="drop-zone">
+        <input type="file" id="file-input" accept=".csv" hidden>
+        <div class="drop-icon">📊</div>
+        <h3>Drag & Drop your CSV data here</h3>
+        <p>or click to browse from your device</p>
+      </div>
+    </section>
+
+    <!-- Dashboard Section (Hidden Initially) -->
+    <section id="section-dashboard" class="dashboard-section hidden">
+
+      <!-- Left Column: Data Overview -->
+      <div class="col-left">
+
+        <!-- Context Panel -->
+        <div class="panel context-panel">
+          <div class="panel-header">
+            <h3 class="panel-title">🧠 Domain Context</h3>
+          </div>
+          <div class="panel-body">
+            <p class="help-text">Add context about this dataset to improve hypothesis generation. What are we looking
+              at?</p>
+            <textarea id="domain-context"
+              placeholder="e.g. This is retail sales data for 2024. We recently ran a summer marketing campaign in Region B..."></textarea>
+            <button class="btn btn-primary btn-full mt-3" id="btn-reanalyze">Generate Hypotheses</button>
+          </div>
+        </div>
+
+        <!-- Stats Panel -->
+        <div class="panel stats-panel">
+          <div class="panel-header">
+            <h3 class="panel-title">📈 Data Overview</h3>
+            <span class="badge" id="data-shape">0 rows × 0 cols</span>
+          </div>
+          <div class="panel-body p-0">
+            <div class="table-container">
+              <table class="stats-table" id="stats-table">
+                <thead>
+                  <tr>
+                    <th>Column</th>
+                    <th>Type</th>
+                    <th>Nulls</th>
+                    <th>Mean / Mode</th>
+                    <th>Trend</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Filled by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Middle Column: Dashboards & Hypotheses -->
+      <div class="col-right">
+
+        <div class="results-header">
+          <h2>Data Visualizations</h2>
+        </div>
+        <div class="charts-grid" id="charts-grid">
+           <!-- Rendered by Chart.js -->
+        </div>
+
+        <div class="results-header" style="margin-top: 24px;">
+          <h2>Insights & Hypotheses</h2>
+          <div class="results-actions">
+            <span class="results-count" id="hypothesis-count">0 hypotheses</span>
+
+          </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading-state" class="loading-state hidden">
+          <div class="spinner"></div>
+          <p>Crunching numbers and synthesizing hypotheses...</p>
+        </div>
+
+        <!-- Hypotheses Container -->
+        <div id="hypotheses-container" class="hypotheses-container">
+          <!-- Filled by JS -->
+        </div>
+
+      </div>
+
+      <!-- Right Column: AI Chat -->
+      <div class="col-chat">
+        <div class="chat-panel">
+          <div class="chat-header">
+            <span>💬 Data Assistant</span>
+            <button id="btn-close-chat" class="btn btn-ghost" style="padding: 2px 6px; font-size: 0.8rem; color: var(--text-mut);" title="Hide Assistant">✖</button>
+          </div>
+          <div class="chat-messages" id="chat-messages">
+            <div class="chat-msg msg-llm">Hello! I'm Conjecture.ai. Once you load a dataset, you can ask me questions about it!</div>
+          </div>
+          <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Ask about your data..." disabled>
+            <button class="chat-submit" id="btn-chat-send" title="Send" disabled>➤</button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <footer
+    style="text-align: center; padding: 20px; color: var(--text-mut); font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 40px;">
+    Created with ❤️ by Vishal Aggarwal
+  </footer>
+
+  <script src="engine.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>

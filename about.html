@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Conjecture.ai</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💠</text></svg>">
+</head>
+<body>
+  <!-- Background Animation -->
+  <div class="bg-fx"></div>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="container header-container">
+      <div class="logo">
+        <div class="logo-icon" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: white; margin-top:2px;">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h1>Conjecture.ai</h1>
+          <span>Automated Data Analytics</span>
+        </div>
+      </div>
+      <div class="header-nav" style="display:flex; gap:16px; margin-right:auto; margin-left:40px;">
+         <a href="index.html" class="nav-link">Home</a>
+         <a href="about.html" class="nav-link active">About Us</a>
+         <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-ghost" id="btn-theme-toggle" title="Toggle Light/Dark Mode" style="font-size: 1.2rem; padding: 4px 10px;">☀️</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="container app-main">
+    <section class="upload-section" style="max-width: 800px; padding: 40px; text-align: left; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border);">
+      <h2 style="font-size: 2rem; margin-bottom: 20px; color: var(--text-main);">About Conjecture.ai</h2>
+      <p style="font-size: 1.1rem; color: var(--text-sec); margin-bottom: 20px; line-height: 1.7;">
+        Conjecture.ai is a cutting-edge, privacy-first data analytics engine. Built entirely using modern web technologies, it leverages mathematical heuristics and localized AI logic to automatically unearth hidden trends, anomalies, and correlations in your datasets.
+      </p>
+      <p style="font-size: 1.1rem; color: var(--text-sec); margin-bottom: 20px; line-height: 1.7;">
+        We believe exploring data shouldn't require complex SQL queries, Python scripts, or expensive cloud infrastructure. Just drag, drop, and discover. By running entirely in your browser, your sensitive data NEVER leaves your local machine context except for explicit LLM assistant queries.
+      </p>
+      <p style="font-size: 1.1rem; color: var(--text-sec); line-height: 1.7;">
+        Powered by an advanced rule-based mathematical engine, dynamic Chart.js visualizations, and the lightning-fast Groq API for conversational querying, Conjecture.ai acts as your personal data scientist—available instantly, 24/7.
+      </p>
+    </section>
+  </main>
+
+  <footer style="text-align: center; padding: 20px; color: var(--text-mut); font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 40px;">
+    created with ❤️ by Vishal Aggarwal
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

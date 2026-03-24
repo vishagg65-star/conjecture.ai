@@ -1,0 +1,45 @@
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: "Method not allowed. Use POST." });
+  }
+
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) {
+    return res.status(500).json({ error: "Server missing GROQ_API_KEY environment variable. Please configure it in Vercel Settings." });
+  }
+
+  try {
+    const { prompt, response_format } = req.body;
+
+    const payload = {
+      model: "llama-3.1-8b-instant",
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.5
+    };
+    
+    // Inject JSON mode strictness if requested by the frontend
+    if (response_format) {
+      payload.response_format = response_format;
+      payload.temperature = 0.2;
+    }
+
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${apiKey}`
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      return res.status(response.status).json(err);
+    }
+
+    const data = await response.json();
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}
