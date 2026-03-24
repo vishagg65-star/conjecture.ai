@@ -27,6 +27,13 @@ let currentHypotheses = [];
 
 // --- Init & Events ---
 function init() {
+  // Theme Initialization
+  if (localStorage.getItem('theme') === 'light') {
+    if (UI.btnThemeToggle) UI.btnThemeToggle.textContent = '🌙';
+  } else {
+    if (UI.btnThemeToggle) UI.btnThemeToggle.textContent = '☀️';
+  }
+
   // Theme Toggle Handler
   if (UI.btnThemeToggle) {
     UI.btnThemeToggle.addEventListener('click', () => {
@@ -34,9 +41,11 @@ function init() {
       if (isLight) {
         document.body.removeAttribute('data-theme');
         UI.btnThemeToggle.textContent = '☀️';
+        localStorage.setItem('theme', 'dark');
       } else {
         document.body.setAttribute('data-theme', 'light');
         UI.btnThemeToggle.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
       }
     });
   }
