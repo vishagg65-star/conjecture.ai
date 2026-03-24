@@ -247,7 +247,15 @@ textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent
 }
 
 @media (max-width: 1024px) {
-  .dashboard-section { grid-template-columns: 1fr; }
+  .dashboard-section, 
+  .dashboard-section.chat-hidden { 
+    grid-template-columns: 1fr !important; 
+  }
+  .col-chat {
+    position: relative !important;
+    top: auto !important;
+    max-height: 500px;
+  }
 }
 
 .col-left { display: flex; flex-direction: column; gap: 1.5rem; }
@@ -382,3 +390,58 @@ textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes slideInUp { from { opacity: 0; transform: translateY(30px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
 @keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* ==== MOBILE RESPONSIVENESS ==== */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    height: auto;
+    padding: 15px 0;
+    gap: 15px;
+  }
+  .header-nav {
+    margin-left: 0 !important;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .header-actions {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .container {
+    padding: 0 1rem;
+  }
+  .app-main {
+    padding: 1.5rem 1rem;
+  }
+  .hero-text h2 {
+    font-size: 1.8rem;
+  }
+  .drop-zone {
+    padding: 30px 20px;
+  }
+  .hypothesis-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+  .evidence-list li {
+    text-align: left;
+  }
+  .hyp-feedback {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .results-header, .panel-header {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .hypothesis-card {
+    padding: 16px;
+  }
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
